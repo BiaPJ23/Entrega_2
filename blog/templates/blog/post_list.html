@@ -1,0 +1,17 @@
+{% load static %}
+<ul>
+    {% block title %}<h1>Lista de Posts:</h1>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <br>
+    <a href="{% url 'blog:create_post' %}">CRIAR NOVO POST</a>
+    <br>
+    {% for post in posts %}
+        {% if post.id %}
+            <li>
+                <a href="{% url 'blog:detail_post' post.id %}">{{ post.title }}</a>
+            </li>
+        {% else %}
+            <li>Post inválido</li>
+        {% endif %}
+    {% endfor %}
+</ul>
