@@ -1,5 +1,6 @@
 {% load static %}
 <ul>
+    <a href="{% url 'blog:index' %}">Voltar</a>
     {% block title %}<h1>Lista de Posts:</h1>{% endblock %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <br>
