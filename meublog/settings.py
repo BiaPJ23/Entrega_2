@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-50#o*2tus*$oplp%+ze+c*y5l^n28o%xf1!b3@n6=vtfgxbeit
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", ".onrender.com"]
+ALLOWED_HOSTS = ["BlogDaCici", ".onrender.com"]
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com/"]
 
 # Application definition
@@ -118,7 +118,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
