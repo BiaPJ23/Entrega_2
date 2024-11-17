@@ -28,3 +28,10 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comentário de {self.author} em {self.post.title}'
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True) 
+    posts = models.ManyToManyField('Post', related_name='categories') 
+
+    def __str__(self):
+        return self.name

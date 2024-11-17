@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 
@@ -43,6 +43,16 @@ def post_delete(request, pk):
         post.delete()
         return redirect('blog:list_post')
     return render(request, 'blog/post_delete.html', {'post': post})
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'blog/category_list.html', {'categories': categories})
+
+def category_detail(request, id):
+    category = get_object_or_404(Category, id=id)
+    posts = category.posts.all()  
+    return render(request, 'blog/category_detail.html', {'category': category, 'posts': posts})
+
 
 @login_required
 def add_comment(request, id):

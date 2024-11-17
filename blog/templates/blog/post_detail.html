@@ -7,6 +7,15 @@
 <a href="{% url 'blog:edit_post' post.pk %}">Editar</a>
 <a href="{% url 'blog:delete_post' post.pk %}">Deletar</a>
 
+<h2>Categorias</h2>
+<ul>
+    {% for category in post.categories.all %}
+    <li>
+        <a href="{% url 'blog:category_detail' category.id %}">{{ category.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
 <hr>
 <h2>Comentários</h2>
 <a href="{% url 'blog:add_comment' post.id %}">Adicionar comentário</a>
