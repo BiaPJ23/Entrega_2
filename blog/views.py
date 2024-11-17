@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Comment
+from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
 
 def index(request):
     context = {}
@@ -15,7 +17,8 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    comments = post.comments.order_by('-created_at') 
+    return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments})
 
 def post_create(request):
     if request.method == 'POST':
@@ -40,3 +43,20 @@ def post_delete(request, pk):
         post.delete()
         return redirect('blog:list_post')
     return render(request, 'blog/post_delete.html', {'post': post})
+
+@login_required
+def add_comment(request, id):
+    post = get_object_or_404(Post, id=id)
+
+    if request.method == "POST":
+        text = request.POST.get("text")
+        if text:
+            Comment.objects.create(
+                author=request.user, 
+                post=post,
+                text=text,
+                created_at=now()
+            )
+            return redirect('blog:detail_post', pk=post.id) 
+
+    return render(request, 'blog/add_comment.html', {'post': post})
